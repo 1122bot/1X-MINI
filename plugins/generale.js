@@ -10,14 +10,14 @@ cmd({
     alias: ["speed"],
     desc: "Vérifier la latence et les ressources",
     category: "general",
-    react: "⚡"
+    react: "👑"
 },
 async(conn, mek, m, { from, reply, myquoted }) => {
     try {
         const start = Date.now();
         
         // 1. Message d'attente
-        const msg = await conn.sendMessage(from, { text: '🔄 ᴛᴇsᴛɪɴɢ sᴘᴇᴇᴅ..._' }, { quoted: myquoted });
+        const msg = await conn.sendMessage(from, { text: '*T E S T I N G....*' }, { quoted: myquoted });
         
         const end = Date.now();
         const latency = end - start;
@@ -29,13 +29,12 @@ async(conn, mek, m, { from, reply, myquoted }) => {
 
         // 3. Message Final Stylé
         const pingMsg = `
-⚡ *𝐒𝐇𝐀𝐃𝐎𝐖 𝐒𝐏𝐄𝐄𝐃* ⚡
+*👑 BILAL-MD UPTIME 👑* ⚡
 
-📟 *ʟᴀᴛᴇɴᴄʏ:* ${latency}ms
-💻 *ʀᴀᴍ:* ${usedMem}MB / ${totalMem}MB
-🚀 *sᴇʀᴠᴇʀ:*ᴀᴄᴛɪᴠᴇe
+* UPTIME :❯  ${latency}*
 
-> ${config.BOT_FOOTER}
+*👑 RAM :❯ ${usedMem}MB / ${totalMem}MB
+
 `;
 
         // 4. Édition du message (Effet visuel)
