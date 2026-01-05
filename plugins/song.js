@@ -12,7 +12,7 @@ cmd({
   filename: __filename
 }, async (conn, mek, m, { from, reply, q }) => {
   try {
-    if (!q) return reply("⚠️ Please provide a song name or YouTube link.");
+    if (!q) return reply("*AP NE KOI AUDIO DOWNLOADING KARNI HAI 🤔*\n*TO AP ESE LIKHO ☺️*\n\n*SONG ❮AUDIO NAME❯* \n\n*JAB AP ESE LIKHO GE 🙂 TO APKA AUDIO DOWNLOADING KAR KE 😍 YAHA PER BHEJ DYA JAYE GA 😊❣️*");
 
     // 🔹 Call Nekolabs API (directly supports search query or URL)
     const apiUrl = `https://api.nekolabs.my.id/downloader/youtube/play/v1?q=${encodeURIComponent(q)}`;
@@ -20,7 +20,7 @@ cmd({
     const data = await res.json();
 
     if (!data?.status || !data?.result?.downloadUrl) {
-      return reply("❌ Song not found or API error. Try again later.");
+      return reply("*SIRF YOUTUBE VIDEO/AUDIO KA LINK DO YA AUDIO KA NAME LIKHO 😊*");
     }
 
     const meta = data.result.metadata;
@@ -37,16 +37,15 @@ cmd({
 
     // 🔹 Caption card with extra info
     const caption = `
-╔═══════════════
-🎶 *Now Playing*
-╠═══════════════
-🎵 *Title:* ${meta.title}
-👤 *Channel:* ${meta.channel}
-⏱ *Duration:* ${meta.duration}
-🔗 [Watch on YouTube](${meta.url})
-╠═══════════════
-⚡ Powered by *BILAL MD*
-╚═══════════════
+*👑 AUDIO INFO 👑*
+
+*👑 NAME :❯ ${meta.title}*
+*👑 CHANNEL :❯ ${meta.channel}*
+*👑 TIME :❯* ${meta.duration}
+*👑 AUDIO LINK 👑*
+*(${meta.url})*
+
+*👑 BILAL-MD 👑
 `;
 
     // 🔹 Send info card
