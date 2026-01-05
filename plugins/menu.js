@@ -22,7 +22,7 @@ const normalize = str => str.toLowerCase().replace(/\s+menu$/, '').trim();
 // =============================================================
 cmd({
   pattern: "menu",
-  alias: ["help", "allmenu", "💫"],
+  alias: ["help", "allmenu", "m"], "me", "men", "menus", "list",
   use: ".menu",
   desc: "Show all bot commands",
   category: "menu",
@@ -48,14 +48,18 @@ async (conn, mek, m, { from, reply, myquoted }) => {
 
     // HEADER
     let menu = `
-╭┄┄───────┄┄
-│ ᴜꜱᴇʀ: @${sender.split("@")[0]}
-│ ᴍᴏᴅᴇ: ${mode}
-│ ᴘʀᴇғɪx: ${prefix}
-│ ᴄᴍᴅꜱ: ${toUpperStylized(String(totalCommands))} ᴘʟᴜɢɪɴꜱ
-│ ᴜᴘᴛɪᴍᴇ: ${uptime()}
-│ ᴅᴇᴠ: bilal
-╰┄┄────┄────┄┄`;
+    *👑 BILAL-MD MENU 👑*
+    
+*╭┄┄───────┄┄👑*
+*│ 👑 MODE :❯ ${mode}*
+*│ 👑 PREFIX :❯ ${prefix}*
+*│ 👑 COMMANDS :❯  ${toUpperStylized(String(totalCommands))}*
+*│ 👑 UPTIME :❯ ${uptime()}*
+*╰┄┄────┄────┄┄👑*
+
+
+*HI @${sender.split("@")[0]} G 😍*
+*MERE BOT KE COMMANDS DEKHE 🤗*`;
 
     // Catégories regroupées
     let categories = {};
@@ -72,7 +76,7 @@ async (conn, mek, m, { from, reply, myquoted }) => {
     for (let cat of sortedCats) {
       const stylizedCat = toUpperStylized(cat);
 
-      menu += `\n\n┌── 『 *${stylizedCat} ᴍᴇɴᴜ* 』`;
+      menu += `\n\n┌── 『 *${stylizedCat} MENU* 』`;
 
       const cmds = categories[cat]
         .filter(c => c.pattern)
@@ -80,7 +84,7 @@ async (conn, mek, m, { from, reply, myquoted }) => {
 
       for (let c of cmds) {
         const usage = c.pattern.split('|')[0];
-        menu += `\n├❃ ${prefix}${toUpperStylized(usage)}`;
+        menu += `\n├👑 ${prefix}${toUpperStylized(usage)}`;
       }
 
       menu += `\n┗━━━━━━━━━━━━━━❃`;
@@ -88,7 +92,7 @@ async (conn, mek, m, { from, reply, myquoted }) => {
 
     // ENVOI AVEC myquoted
     await conn.sendMessage(from, {
-      image: { url: config.IMAGE_PATH || 'https://pmd-img2url.koyeb.app/v/c6a14ba0c8147a72297276ba59995d15.jpg' },
+      image: { url: config.IMAGE_PATH || 'https://files.catbox.moe/kunzpz.png' },
       caption: menu,
       contextInfo: {
         mentionedJid: [sender],
@@ -96,7 +100,7 @@ async (conn, mek, m, { from, reply, myquoted }) => {
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
           newsletterJid: '120363296818107681@newsletter',
-          newsletterName: 'BILAL KING',
+          newsletterName: 'BILAL-MD WHATSAPP BOT',
           serverMessageId: 143
         }
       }
