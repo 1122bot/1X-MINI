@@ -16,7 +16,7 @@ module.exports = {
     // 2. INFORMATIONS DU BOT
     // ===========================================================
     PREFIX: process.env.PREFIX || '.',
-    OWNER_NUMBER: process.env.OWNER_NUMBER || '50948702213', // Mettez votre numéro ici
+    OWNER_NUMBER: process.env.OWNER_NUMBER || '+923078071982', // Mettez votre numéro ici
     BOT_NAME: "BILAL MD",
     BOT_FOOTER: '© ᴘᴏᴡᴇʀᴇᴅ ʙʏ bilal',
     
@@ -28,10 +28,10 @@ module.exports = {
     // ===========================================================
     AUTO_VIEW_STATUS: process.env.AUTO_VIEW_STATUS || 'true', // Voir automatiquement les statuts
     AUTO_LIKE_STATUS: process.env.AUTO_LIKE_STATUS || 'true', // Liker automatiquement les statuts
-    AUTO_LIKE_EMOJI: ['❤️', '🌹', '😇', '💥', '🔥', '💫', '💎', '💙', '🌝', '💚'], 
+    AUTO_LIKE_EMOJI: ['❤️', '🌹', '✨', '🥰', '🌹', '😍', '💞', '💕', '☺️', '🤗'], 
     
     AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || 'false', // Répondre aux statuts
-    AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || 'Nice status! 🔥', // Message de réponse
+    AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || '🤗', // Message de réponse
     
     // ===========================================================
     // 4. FONCTIONNALITÉS DE CHAT & PRÉSENCE
@@ -56,19 +56,19 @@ module.exports = {
     // 6. SÉCURITÉ & ANTI-CALL
     // ===========================================================
     ANTI_CALL: process.env.ANTI_CALL || 'false', // Rejeter les appels
-    REJECT_MSG: process.env.REJECT_MSG || '*📞 Call rejected automatically. No calls allowed.*',
+    REJECT_MSG: process.env.REJECT_MSG || '*CALL NAHI KARE PLEASE ☺️🌹*',
     
     // ===========================================================
     // 7. IMAGES & LIENS
     // ===========================================================
     IMAGE_PATH: 'https://pmd-img2url.koyeb.app/v/c6a14ba0c8147a72297276ba59995d15.jpg',
-    CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G',
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029VbBXuGe4yltMLngL582d',
     
     // ===========================================================
     // 8. EXTERNAL API (Optionnel)
     // ===========================================================
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '7214172448:AAHGqSgaw-zGVPZWvl8msDOVDhln-9kExas',
-    TELEGRAM_CHAT_ID: process.env.  TELEGRAM_CHAT_ID || '7825445776'
+    TELEGRAM_CHAT_ID: process.env.  TELEGRAM_CHAT_ID || '+923078071982'
     
 };
   
