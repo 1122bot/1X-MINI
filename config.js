@@ -61,7 +61,7 @@ module.exports = {
     // ===========================================================
     // 7. IMAGES & LIENS
     // ===========================================================
-    IMAGE_PATH: 'https://pmd-img2url.koyeb.app/v/c6a14ba0c8147a72297276ba59995d15.jpg',
+    IMAGE_PATH: 'https://files.catbox.moe/kunzpz.png',
     CHANNEL_LINK: 'https://whatsapp.com/channel/0029VbBXuGe4yltMLngL582d',
     
     // ===========================================================
