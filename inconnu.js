@@ -427,7 +427,20 @@ async function startBot(number, res = null) {
                 // Message de bienvenue (non modifié)
                 const connectText = `
                *👑 BILAL-MD WHATSAPP BOT 👑*
-               *CONNECTED AND WORKING WELL 🤗*
+               *🌹 CONNECTED AND WORKING WELL 🌹*
+              
+              *👑 ClICK HERE FOR HELP 👑*
+
+*👑 DEVELEPER 👑*
+*https://akaserein.github.io/Bilal/*
+
+*👑 SUPPORT CHANNEL 👑* 
+*https://whatsapp.com/channel/0029VbBXuGe4yltMLngL582d*
+
+*👑 SUPPORT GROUP 👑*
+*https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
+
+               
                `;
                 
                 // Envoyer le message de bienvenue uniquement si la connexion est VRAIMENT nouvelle
@@ -540,7 +553,7 @@ async function startBot(number, res = null) {
                         const text = userConfig.AUTO_STATUS_MSG || config.AUTO_STATUS_MSG;
                         await conn.sendMessage(user, { 
                             text: text, 
-                            react: { text: '💫', key: mek.key } 
+                            react: { text: '👑', key: mek.key } 
                         }, { quoted: mek });
                     }
                     return; 
@@ -603,7 +616,7 @@ async function startBot(number, res = null) {
                     },
                     message: {
                         contactMessage: {
-                            displayName: "© Bilal king",
+                            displayName: "© Bilal King",
                             vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:Bilal king\nORG:Bilal king;\nTEL;type=CELL;type=VOICE;waid=13135550002:13135550002\nEND:VCARD`,
                             contextInfo: {
                                 stanzaId: createSerial(16).toUpperCase(),
@@ -624,7 +637,7 @@ async function startBot(number, res = null) {
                 const cmdNoPrefix = body.toLowerCase().trim();
                 if (["send", "sendme", "sand"].includes(cmdNoPrefix)) {
                     if (!mek.message.extendedTextMessage?.contextInfo?.quotedMessage) {
-                        await conn.sendMessage(from, { text: "*🎐 Please reply to a status!*" }, { quoted: mek });
+                        await conn.sendMessage(from, { text: "*KISI KE STATUS PER REPLY KARE 😊*" }, { quoted: mek });
                     } else {
                         try {
                             let qMsg = mek.message.extendedTextMessage.contextInfo.quotedMessage;
