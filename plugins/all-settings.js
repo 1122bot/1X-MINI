@@ -107,7 +107,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('WELCOME', 'false', botNumber, config, reply);
     } else {
-        reply(`*ABHI :❯ ${config.WELCOME} HAI 😊*\n\n*JO NEW MEMBER GROUP JOIN KARE GA USKA WELCOME KHUD HI HO JAYE GA 😃 YEH SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮WECOME ON❯ 👑*\n*WELCOME OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮WELCOME OFF❯ 👑*`);
+        reply(`*ABHI :❯ ${config.WELCOME} HAI 😊*\n\n*JO NEW MEMBER GROUP JOIN KARE GA USKA WELCOME MSG BHEJ DYA JAYE GA 😃 YEH SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮WECOME ON❯ 👑*\n*WELCOME OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮WELCOME OFF❯ 👑*`);
     }
 });
 
@@ -118,7 +118,7 @@ cmd({
     react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -126,7 +126,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('GOODBYE', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.GOODBYE}\nUsage: .goodbye on/off`);
+        reply(`*ABHI :❯ ${config.GOODBYE} HAI 😊*\n\n*JO MEMBER GROUP LEFT KARE GA USKA GOODBYE MSG BHEJ DYA JAYE GA 😃 YEH SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮GOODBYE ON❯ 👑*\n*GOODBYE OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮GOODBYE OFF❯ 👑*`);
     }
 });
 
@@ -141,7 +141,7 @@ cmd({
     react: "👀"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -149,19 +149,19 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('READ_MESSAGE', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.READ_MESSAGE}\nUsage: .autoread on/off`);
+        reply(`*ABHI ${config.READ_MESSAGE} HAI 😊*\n*JO BHI MSG KARE GA USKA MSG KHUD HI SEEN `);
     }
 });
 
 cmd({
-    pattern: "autoviewstatus",
-    alias: ["avs"],
+    pattern: "autoviewsview",
+    alias: ["avs", "statusseen", "astatus"],
     desc: "Auto view status updates",
     category: "settings",
-    react: "👁️"
+    react: "😎"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -169,7 +169,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('AUTO_VIEW_STATUS', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.AUTO_VIEW_STATUS}\nUsage: .autoviewstatus on/off`);
+        reply(`*ABHI ${config.AUTO_VIEW_STATUS} HAI 😊*\n\n*JO BHI STATUS LAGAYE GA KHUD HI SEEN HO JAYE GA 😃 YEH SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮AUTOSTATUSVIEW ON❯ 👑*\n*OFF KARNE KE LIE LIKHO ☺️*\n*👑 ❮AUTOSTATUSVIEW OFF❯ 👑*`);
     }
 });
 
@@ -204,14 +204,14 @@ cmd({
     react: "⚙️"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const mode = args[0]?.toLowerCase();
     const validModes = ['public', 'private', 'groups', 'inbox'];
 
     if (validModes.includes(mode)) {
         await updateConfig('WORK_TYPE', mode, botNumber, config, reply);
     } else {
-        reply(`❌ Invalid mode.\nAvailable modes: ${validModes.join(', ')}\nCurrent: ${config.WORK_TYPE}`);
+        reply(`*GHALAT LIKHA HAI 🥺*\n*ESE LIKHO ☺️*COMMAND ❮MODE❯ LIKH KER IN ME SE KOI EK WORD LIKHO JAHA AP CHAHTE HO K BOT WORK KRE 🤗*\n ${validModes.join(', ')}\nCurrent: ${config.WORK_TYPE}`);
     }
 });
 
@@ -219,10 +219,10 @@ cmd({
     pattern: "setprefix",
     desc: "Change bot prefix",
     category: "settings",
-    react: "🔣"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const newPrefix = args[0];
 
     if (newPrefix) {
@@ -231,6 +231,6 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
         
         await updateConfig('PREFIX', newPrefix, botNumber, config, reply);
     } else {
-        reply(`🔣 Current Prefix: ${config.PREFIX}\nUsage: .setprefix !`);
+        reply(`*ABHI PREFIX ❮ ${config.PREFIX} ❯ HAI ☺️*\nJIS BHI NISHAN AP BOT CHALANA CHAHTE HAI WO NISHAN SET KERE ESE 😊*\n*❮SETPREFIX . ! + _ -❯*\n*JO BHI APKA DIL KARE 😍❣️*`);
     }
 });
