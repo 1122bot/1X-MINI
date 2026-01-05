@@ -12,7 +12,7 @@ cmd({
     filename: __filename
 }, async (conn, m, mek, { from, q, reply }) => {
     try {
-        if (!q) return await reply("❌ Please provide a song name or YouTube URL!");
+        if (!q) return await reply("*AP NE AGAR KOI AUDIO DOWNLOADING KARNA HAI 🤔*\n*TO AP ESE LIKHO ☺️*\n\n *SONG ❮AUDIO KA NAME❯* \n\n*JAB AP ESE LIKHO GE 😊 TO APKA AUDIO DOWNLOADING KAR KE 🙂 YAHA PER BHEJ DE GE 😍❣️*");
 
         await reply("⏳ Searching and fetching audio...");
 
@@ -39,7 +39,7 @@ cmd({
         // Send details with cover
         await conn.sendMessage(from, {
             image: { url: thumbnail },
-            caption: `🎶 *${title}*\n📺 ${channel}\n\n${description.substring(0, 200)}...`
+            caption: `*👑 AUDIO INFO 👑* \n\n *${title}*\n ${channel}\n\n${description.substring(0, 200)}...`
         }, { quoted: mek });
 
         // Send audio file
