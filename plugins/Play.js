@@ -1,58 +1,74 @@
 const { cmd } = require('../inconnuboy');
-const fetch = require('node-fetch');
-const yts = require('yt-search'); // search support
+const axios = require('axios'); // Fetch ki jagah axios use kiya hai
+const yts = require('yt-search');
 
 cmd({
     pattern: "play2",
     alias: ["ytplay2", "music2"],
     react: "🎶",
-    desc: "Download YouTube audio using GTech API",
+    desc: "Download YouTube audio via Movanest API",
     category: "download",
-    use: ".play2 <song name or YouTube URL>",
+    use: ".play2 <song name>",
     filename: __filename
-}, async (conn, m, mek, { from, q, reply }) => {
+}, async (conn, mek, m, { from, q, reply }) => {
     try {
-        if (!q) return await reply("*AP NE AGAR KOI AUDIO DOWNLOADING KARNA HAI 🤔*\n*TO AP ESE LIKHO ☺️*\n\n *SONG ❮AUDIO KA NAME❯* \n\n*JAB AP ESE LIKHO GE 😊 TO APKA AUDIO DOWNLOADING KAR KE 🙂 YAHA PER BHEJ DE GE 😍❣️*");
+        if (!q) return reply("*👑 ENTER SONG NAME OR LINK G!*");
 
-        await reply("⏳ Searching and fetching audio...");
+        // React with search
+        await m.react("🔍");
 
         let videoUrl = q;
+        let searchResult;
 
-        // If not a YouTube URL, search first
+        // Agar link nahi hai to search karein
         if (!q.match(/(youtube\.com|youtu\.be)/)) {
             const search = await yts(q);
-            if (!search.videos.length) return await reply("❌ No results found!");
-            videoUrl = search.videos[0].url;
+            if (!search.videos.length) return reply("*👑 ERROR :❯* NO RESULTS FOUND!");
+            searchResult = search.videos[0];
+            videoUrl = searchResult.url;
         }
 
-        // API call (replace APIKEY with your valid key)
+        // API Call using Axios
         const apiUrl = `https://www.movanest.xyz/v2/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        const { data } = await axios.get(apiUrl);
 
-        if (!data.status || !data.result || !data.result.media) {
-            return await reply("❌ Failed to fetch audio!");
+        // Check logic based on your previous API response structure
+        if (!data || !data.results || !data.results.download || !data.results.download.url) {
+            return reply("*👑 ERROR :❯* API RESPONSE FAILED!");
         }
 
-        const { title, thumbnail, audio_url, channel, description } = data.result.media;
+        const metadata = data.results.metadata;
+        const download = data.results.download;
 
-        // Send details with cover
-        await conn.sendMessage(from, {
-            image: { url: thumbnail },
-            caption: `*👑 AUDIO INFO 👑* \n\n *${title}*\n ${channel}\n\n${description.substring(0, 200)}...`
+        // Mini Bot Design (Uptime Style Borders)
+        let caption = `╭━━━〔 *SONG DOWNLOADER* 〕━━━┈⊷
+┃
+┃ 👑 *TITLE:* ${metadata.title.toUpperCase()}
+┃ 👑 *VIEWS:* ${metadata.views}
+┃ 👑 *TIME:* ${metadata.duration.timestamp}
+┃ 👑 *SIZE:* ${(download.size / 1024 / 1024).toFixed(2)} MB
+┃
+╰━━━━━━━━━━━━━━━┈⊷
+
+*POWERED BY BILAL-MD* 👑`;
+
+        // 1. Send Thumbnail with Caption
+        await conn.sendMessage(from, { 
+            image: { url: metadata.thumbnail || metadata.image }, 
+            caption: caption 
         }, { quoted: mek });
 
-        // Send audio file
+        // 2. Send Audio File
         await conn.sendMessage(from, {
-            audio: { url: audio_url },
+            audio: { url: download.url },
             mimetype: 'audio/mpeg',
-            ptt: false
+            fileName: `${metadata.title.toUpperCase()}.mp3`
         }, { quoted: mek });
 
-        await reply(`✅ *${title}* downloaded successfully!`);
+        await m.react("✅");
 
     } catch (error) {
         console.error(error);
-        await reply(`❌ Error: ${error.message}`);
+        reply(`*👑 ERROR :❯* ${error.message.toUpperCase()}`);
     }
 });
