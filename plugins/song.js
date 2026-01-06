@@ -3,63 +3,48 @@ const axios = require('axios');
 
 cmd({
   pattern: "song",
-  alias: ["play", "audio", "mp3"],
-  react: "🎶",
-  desc: "Download YouTube audio in mini bot style",
+  react: "😇",
+  alias: ["yta", "ytaudio"],
   category: "download",
-  use: ".song <name/link>",
   filename: __filename
-}, async (conn, mek, m, { from, reply, q }) => {
+}, async (conn, mek, m, { from, q, reply }) => {
   try {
-    // Basic Check
-    if (!q) return reply("*👑 ENTER SONG NAME OR LINK G!*");
+    if (!q) return reply("❌ YouTube link do");
 
-    // Start Reaction
-    await m.react("📥");
-
-    // Calling API (Using Movanest ytmp3 v2)
     const apiUrl = `https://www.movanest.xyz/v2/ytmp3?url=${encodeURIComponent(q)}`;
-    const { data } = await axios.get(apiUrl);
+    const res = await axios.get(apiUrl);
+    const data = res.data;
 
-    // Validation Check based on your Video command logic
-    if (!data || !data.results || !data.results.download || !data.results.download.url) {
-      await m.react("❌");
-      return reply("*👑 ERROR :❯* AUDIO NOT FOUND! 😔");
+    // 🔎 API status check
+    if (data.status !== true) {
+      return reply("❌ API response false hai");
     }
 
-    const metadata = data.results.metadata;
-    const download = data.results.download;
+    if (!data.results || !data.results.download || !data.results.download.url) {
+      return reply("❌ Download link missing hai");
+    }
 
-    // Mini Bot Style Caption (Exactly like your Video command)
-    const caption = `
-*👑 SONG DOWNLOADER 👑*
+    const meta = data.results.metadata;
+    const dl = data.results.download;
 
-*👑 NAME   :❯ ${metadata.title.toUpperCase()}*
-*👑 VIEWS  :❯ ${metadata.views}*
-*👑 TIME   :❯ ${metadata.duration.timestamp}*
-*👑 SIZE   :❯ ${(download.size / 1024 / 1024).toFixed(2)} MB*
+    const caption = `🎵 *YouTube MP3*
+📌 Title: ${meta.title}
+👤 Channel: ${meta.author.name}
+⏱ Duration: ${meta.duration.timestamp}
+🎧 Quality: ${dl.quality}`;
 
-*👑 BILAL-MD 👑*`;
-
-    // 1. Send Image First (Thumbnail)
-    await conn.sendMessage(from, { 
-      image: { url: metadata.thumbnail || metadata.image }, 
-      caption: caption 
-    }, { quoted: mek });
-
-    // 2. Send Audio File
-    await conn.sendMessage(from, {
-      audio: { url: download.url },
-      mimetype: "audio/mpeg",
-      fileName: `${metadata.title.toUpperCase()}.mp3`
-    }, { quoted: mek });
-
-    // Success Reaction
-    await m.react("✅");
+    await conn.sendMessage(
+      from,
+      {
+        audio: { url: dl.url },
+        mimetype: "audio/mpeg",
+        caption: caption
+      },
+      { quoted: mek }
+    );
 
   } catch (err) {
-    console.error("SONG CMD ERROR:", err);
-    await m.react("❌");
-    reply("*👑 ERROR :❯* API SE RABTA NAHI HO PA RHA!");
+    console.log(err);
+    reply("❌ Error aa gaya");
   }
 });
