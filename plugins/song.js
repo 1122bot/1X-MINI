@@ -4,47 +4,60 @@ const axios = require('axios');
 cmd({
   pattern: "song",
   react: "😇",
-  alias: ["yta", "ytaudio"],
   category: "download",
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
   try {
-    if (!q) return reply("❌ YouTube link do");
+    if (!q) return reply("❌ Song name ya YouTube link do");
 
-    const apiUrl = `https://www.movanest.xyz/v2/ytmp3?url=${encodeURIComponent(q)}`;
-    const res = await axios.get(apiUrl);
-    const data = res.data;
+    let ytUrl = q;
 
-    // 🔎 API status check
-    if (data.status !== true) {
-      return reply("❌ API response false hai");
+    // 🔍 Agar link nahi hai → search karo
+    if (!q.startsWith("http")) {
+      const searchApi = `https://www.movanest.xyz/v2/ytsearch?query=${encodeURIComponent(q)}`;
+      const searchRes = await axios.get(searchApi);
+      const searchData = searchRes.data;
+
+      if (!searchData.status || !searchData.results || searchData.results.length === 0) {
+        return reply("❌ Song nahi mila");
+      }
+
+      ytUrl = searchData.results[0].url; // first result
     }
 
-    if (!data.results || !data.results.download || !data.results.download.url) {
-      return reply("❌ Download link missing hai");
+    // 🎵 MP3 API
+    const apiUrl = `https://www.movanest.xyz/v2/ytmp3?url=${encodeURIComponent(ytUrl)}`;
+    const { data } = await axios.get(apiUrl);
+
+    if (data.status !== true || !data.results) {
+      return reply("❌ Audio fetch nahi hui");
     }
 
     const meta = data.results.metadata;
     const dl = data.results.download;
 
-    const caption = `🎵 *YouTube MP3*
-📌 Title: ${meta.title}
-👤 Channel: ${meta.author.name}
-⏱ Duration: ${meta.duration.timestamp}
-🎧 Quality: ${dl.quality}`;
+    if (!dl?.url) return reply("❌ Audio link missing");
 
+    // ℹ️ Simple info
+    await reply(
+      `🎵 *Song Info*\n\n` +
+      `📌 ${meta.title}\n` +
+      `👤 ${meta.author.name}\n` +
+      `⏱ ${meta.duration.timestamp}`
+    );
+
+    // 🔊 Direct audio
     await conn.sendMessage(
       from,
       {
         audio: { url: dl.url },
-        mimetype: "audio/mpeg",
-        caption: caption
+        mimetype: "audio/mpeg"
       },
       { quoted: mek }
     );
 
   } catch (err) {
-    console.log(err);
+    console.log("SONG CMD ERROR:", err);
     reply("❌ Error aa gaya");
   }
 });
