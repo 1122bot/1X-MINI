@@ -9,29 +9,50 @@ cmd({
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
   try {
-    // Agar link nahi diya to
-    if (!q) return reply("G LINK DEIN!");
+    if (!q) return reply("❌ Facebook video link do");
 
-    // API Call
-    const apiUrl = `https:///movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`;
-    const { data } = await axios.get(apiUrl);
+    const apiUrl = `https://movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`;
+    const res = await axios.get(apiUrl);
+    const data = res.data;
 
-    // Check if video link exists
-    if (!data || !data.results || data.results.length === 0) {
-      return reply("VIDEO NAHI MILI!");
+    // 🔎 API status check
+    if (data.status !== true) {
+      return reply("❌ API ne false response diya");
     }
 
-    const dlUrl = data.results[0].hdQualityLink || data.results[0].normalQualityLink;
+    // 🔎 Results check
+    if (!Array.isArray(data.results) || data.results.length === 0) {
+      return reply("❌ Results empty hain");
+    }
 
-    // Direct Video Send (No extra text, no image)
-    await conn.sendMessage(from, {
-      video: { url: dlUrl },
-      caption: "*BY BILAL-MD*",
-      mimetype: "video/mp4"
-    }, { quoted: mek });
+    const result = data.results[0];
+
+    // 🎥 Quality selection (API ke mutabiq)
+    const videoUrl = result.hdQualityLink
+      ? result.hdQualityLink
+      : result.normalQualityLink;
+
+    if (!videoUrl) {
+      return reply("❌ Video link missing hai");
+    }
+
+    // 📝 Caption API data se
+    const caption = `🎬 *Facebook Video*
+⏱ Duration: ${result.duration}
+👤 Creator: ${data.creator}`;
+
+    await conn.sendMessage(
+      from,
+      {
+        video: { url: videoUrl },
+        mimetype: "video/mp4",
+        caption: caption
+      },
+      { quoted: mek }
+    );
 
   } catch (err) {
-    // Sirf simple error message
-    reply("ERROR AA GAYA!");
+    console.log(err);
+    reply("❌ Error aa gaya");
   }
 });
