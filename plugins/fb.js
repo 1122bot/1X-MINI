@@ -11,40 +11,43 @@ cmd({
   filename: __filename
 }, async (conn, mek, m, { from, reply, q }) => {
   try {
-    if (!q) return reply("*👑 ENTER FACEBOOK VIDEO LINK G!*");
+    if (!q) return reply("*👑 ENTER FACEBOOK VIDEO LINK G g!*");
 
     // Start Reaction
     await m.react("😃");
 
-    // Replace this with your actual API endpoint
-    const apiUrl = `https://www.movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`; 
+    // FIXED API ENDPOINT: fbdown ko badal kar fbdl kar diya gaya hai
+    const apiUrl = `https://www.movanest.xyz/v2/fbdl?url=${encodeURIComponent(q)}`; 
     const { data } = await axios.get(apiUrl);
 
-    if (!data || !data.status || !data.results.length) {
+    // Validation check for results array
+    if (!data || !data.status || !data.results || !data.results.length) {
+      await m.react("😢");
       return reply("*👑 ERROR :❯* VIDEO NOT FOUND OR PRIVATE! 😔");
     }
 
     const video = data.results[0];
-    const dlUrl = video.hdQualityLink || video.normalQualityLink; // HD ko pehle check karega
+    // HD link ko priority, warna normal
+    const dlUrl = video.hdQualityLink || video.normalQualityLink;
 
-    // Design Caption (Same as your Uptime/Song style)
+    // Design Caption (Uptime style borders)
     let caption = `╭━━━〔 *FB DOWNLOADER* 〕━━━┈⊷
 ┃
-┃ 👑 *TITLE:* ${video.title.toUpperCase()}
-┃ 👑 *DUR:* ${video.duration.toUpperCase()}
-┃ 👑 *QUALITY:* ${video.hdQualityLink ? 'HD' : 'NORMAL'}
+┃ 👑 *TITLE:* ${video.title ? video.title.toUpperCase() : "FB VIDEO"}
+┃ 👑 *DUR:* ${video.duration ? video.duration.toUpperCase() : "N/A"}
+┃ 👑 *QUALITY:* ${video.hdQualityLink ? 'HD (720P)' : 'NORMAL (360P)'}
 ┃
 ╰━━━━━━━━━━━━━━━┈⊷
 
 *POWERED BY BILAL-MD* 👑`;
 
-    // 1. Send Thumbnail with Caption
+    // 1. Send Image/Thumbnail with Caption
     await conn.sendMessage(from, { 
       image: { url: video.thumbnail }, 
       caption: caption 
     }, { quoted: mek });
 
-    // 2. Send Video File
+    // 2. Send Actual Video File
     await conn.sendMessage(from, {
       video: { url: dlUrl },
       caption: "*👑 BY :❯ BILAL-MD 👑*",
@@ -56,8 +59,7 @@ cmd({
 
   } catch (err) {
     console.error("FB CMD ERROR:", err);
-    reply("*👑 ERROR :❯* API SE RABTA NAHI HO PA RHA!");
     await m.react("❌");
+    reply("*👑 ERROR :❯* API SE RABTA NAHI HO PA RHA! 😔");
   }
 });
-      
