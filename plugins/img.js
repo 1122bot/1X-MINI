@@ -1,40 +1,43 @@
 const { cmd } = require('../inconnuboy');
-const gis = require("g-i-s");
+const axios = require('axios');
 
 cmd({
   pattern: "img",
-  alias: ["image", "photo"],
-  react: "🖼️",
+  alias: ["image", "pic", "photo", "gimage"],
+  react: "📸",
   category: "media",
-  desc: "Search images (all users)",
+  desc: "Search and send image from Google",
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
-
   try {
     if (!q) {
-      return reply("📸 Image ke liye kuch likho\n\nExample:\n.img cat\n.img sad boy");
+      return reply(
+        "*📸 IMAGE SEARCH COMMAND*\n\n" +
+        "Is tarah use karo:\n" +
+        "*.img <search term>*\n\n" +
+        "Example:\n" +
+        "*.img cute cats*"
+      );
     }
 
-    gis(q, async (err, res) => {
-      if (err || !res || res.length === 0) {
-        return reply("❌ Koi image nahi mili");
-      }
+    // 🔗 API call
+    const API_URL = `https:///movanest.xyz/v2/googleimage?query=${encodeURIComponent(q)}`;
+    const res = await axios.get(API_URL, { timeout: 60000 });
 
-      const images = [...new Set(res.map(v => v.url))]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 5);
+    if (!res.data || !res.data.status || !res.data.results || res.data.results.length === 0) {
+      return reply("❌ Koi image nahi mili");
+    }
 
-      for (let img of images) {
-        await conn.sendMessage(from, {
-          image: { url: img }
-        }, { quoted: mek });
+    // ✅ First image URL
+    const imageUrl = res.data.results[0];
 
-        await new Promise(r => setTimeout(r, 400));
-      }
-    });
+    await conn.sendMessage(from, {
+      image: { url: imageUrl },
+      caption: `*📸 Image Result for:* ${q}`
+    }, { quoted: mek });
 
-  } catch (e) {
-    console.log("IMG CMD ERROR:", e);
-    reply("❌ Error aa gaya");
+  } catch (err) {
+    console.error("IMAGE COMMAND ERROR:", err.message);
+    reply("❌ Image search failed / API busy");
   }
 });
