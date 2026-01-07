@@ -45,7 +45,7 @@ cmd({
 *║👑 PLATFORM :❯ BILAL❮X❯ar.m64*
 *╚═════════════════╝*
 
-* HI @${sender.split("@")[0]} G 🥰*
+*HI @${sender.split("@")[0]} G 🥰*
 *MERE BOT KA MENU 😍*
 *YEH HAI G 😘*
 
