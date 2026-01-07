@@ -60,6 +60,9 @@ cmd({
 *║ 👑 ANTIDELETE*
 *║ 👑 ANTICALL*
 *║ 👑 MODE*
+*║ 👑 AUTOBIO*
+*║ 👑 BLOCK*
+*║ 👑 UNBLOCK*
 *╚═════════════════╝*
 
 *╔══〘 👑 DOWNLOAD 👑 〙══╗*
@@ -67,12 +70,23 @@ cmd({
 *║ 👑 SONG*
 *║ 👑 TIKTOK*
 *║ 👑 FB*
+*║ 👑 IMG*
 *╚═════════════════╝*
 
 *╔══〘 👑 GROUP 👑 〙══╗*
-*║ 👑 TAGALL*
 *║ 👑 ONLINE*
+*║ 👑 TAGALL*
 *╚═════════════════╝*
+
+*╔══〘 👑 AI 👑 〙══╗*
+*║ 👑 GPT*
+*║ 👑 IMAGINE*
+*╚═════════════════╝*
+
+*╔══〘 👑 CONVERTER 👑 〙══╗*
+*║ 👑 FANCY*
+*╚═════════════════╝*
+
 
 *👑 ClICK HERE FOR HELP 👑*
 
