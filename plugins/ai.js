@@ -14,23 +14,22 @@ cmd({
     if (!q) {
       return reply(
         "*🤖 AI COMMAND*\n\n" +
-        "Is tarah use karo:\n" +
+        "Use:\n" +
         "*.ai apna sawal*\n\n" +
         "Example:\n" +
-        "*.ai Pakistan ka capital kia hai*"
+        "*.ai How are you*"
       );
     }
 
-    // typing feel
     await conn.sendPresenceUpdate('composing', from);
 
-    // 🔗 New API URL
-    const API_URL = `https://www.movanest.xyz/v2/powerbrainai?query=${encodeURIComponent(q)}`;
+    // ✅ YOUR API
+    const API_URL = `https://bilal-md-ai-d1191ad3f31f.herokuapp.com/api/ask?q=${encodeURIComponent(q)}`;
 
     const res = await axios.get(API_URL, { timeout: 60000 });
 
-    if (res.data && res.data.status && res.data.result) {
-      await reply(res.data.result);
+    if (res.data && res.data.reply) {
+      await reply(res.data.reply);
     } else {
       await reply("❌ AI se jawab nahi mila");
     }
