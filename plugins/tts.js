@@ -7,11 +7,15 @@ cmd({
     react: "☺️",
     desc: "Convert text to voice",
     category: "fun",
-    use: ".tts <text>",
     filename: __filename
 },
 async (conn, mek, m, { from, q, args, reply }) => {
     try {
+        // 🟡 MANUAL REACT (VERY IMPORTANT)
+        await conn.sendMessage(from, {
+            react: { text: "☺️", key: m.key }
+        })
+
         if (!q) {
             return reply(
                 "*🗣️ AP NE TEXT KI VOICE BANANI HAI 🥺*\n\n" +
@@ -22,29 +26,37 @@ async (conn, mek, m, { from, q, args, reply }) => {
 
         // 🌍 Language select
         let lang = "en"
+        let text = q
+
         if (args[0] === "ur" || args[0] === "urdu") {
             lang = "ur"
-            q = args.slice(1).join(" ")
+            text = args.slice(1).join(" ")
         }
 
-        // 🎙️ Google TTS audio URL
-        const audioUrl = googleTTS.getAudioUrl(q, {
+        if (!text) {
+            return reply("*❌ TEXT KHALI HAI 🥺*")
+        }
+
+        // 🎙️ Google TTS URL
+        const audioUrl = googleTTS.getAudioUrl(text, {
             lang,
             slow: false,
             host: "https://translate.google.com"
         })
 
         // ⬇️ Download audio
-        const res = await axios.get(audioUrl, { responseType: "arraybuffer" })
+        const res = await axios.get(audioUrl, {
+            responseType: "arraybuffer"
+        })
+
         const audioBuffer = Buffer.from(res.data)
 
-        // 📤 Send voice (normal audio)
+        // 📤 SEND AUDIO
         await conn.sendMessage(
             from,
             {
                 audio: audioBuffer,
                 mimetype: "audio/mp4",
-                fileName: "tts.mp3",
                 ptt: false
             },
             { quoted: mek }
@@ -52,6 +64,11 @@ async (conn, mek, m, { from, q, args, reply }) => {
 
     } catch (e) {
         console.log("TTS ERROR:", e)
+
+        await conn.sendMessage(from, {
+            react: { text: "😔", key: m.key }
+        })
+
         reply("*❌ VOICE BANANE ME ERROR AYA 🥺*")
     }
 })
