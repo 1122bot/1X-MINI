@@ -10,62 +10,55 @@ cmd({
 },
 async (conn, mek, m, { from, isCreator, reply }) => {
     try {
-        // 🔒 Owner only
-        if (!isCreator) {
+        if (!isCreator)
             return reply("*YEH COMMAND SIRF BOT OWNER KE LIYE HAI 😎*")
-        }
 
-        // 📌 Reply check
-        if (!m.quoted) {
+        if (!m.quoted)
             return reply(
                 "*🥺 KISI VIEW ONCE PHOTO / VIDEO / AUDIO KO REPLY KARO*\n\n" +
                 "*Phir likho:* `.vv`\n\n" +
                 "*Phir dekho kamal 😎*"
             )
+
+        // 🔥 VIEW ONCE FIX
+        let quoted = m.quoted
+        let msg = quoted.message
+
+        if (msg?.viewOnceMessageV2) {
+            msg = msg.viewOnceMessageV2.message
+        } else if (msg?.viewOnceMessageV2Extension) {
+            msg = msg.viewOnceMessageV2Extension.message
         }
 
-        const quoted = m.quoted
+        const type = Object.keys(msg)[0]
         const buffer = await quoted.download()
-        const type = quoted.mtype
 
         let content = {}
 
-        // 🖼️ Image
         if (type === "imageMessage") {
             content = {
                 image: buffer,
                 caption: quoted.text || ""
             }
-        }
-
-        // 🎥 Video
+        } 
         else if (type === "videoMessage") {
             content = {
                 video: buffer,
                 caption: quoted.text || ""
             }
-        }
-
-        // 🎧 Audio
+        } 
         else if (type === "audioMessage") {
             content = {
                 audio: buffer,
                 mimetype: "audio/mp4",
-                ptt: quoted.ptt || false
+                ptt: false
             }
-        }
-
-        // ❌ Unsupported
+        } 
         else {
-            return reply("*❌ SIRF VIEW ONCE PHOTO / VIDEO / AUDIO SUPPORT HAI 🥺*")
+            return reply("*❌ YE VIEW ONCE MEDIA SUPPORT NAHI KARTA 🥺*")
         }
 
-        // 📤 Send recovered media
-        await conn.sendMessage(
-            from,
-            content,
-            { quoted: mek }
-        )
+        await conn.sendMessage(from, content, { quoted: mek })
 
     } catch (e) {
         console.log("VV ERROR:", e)
