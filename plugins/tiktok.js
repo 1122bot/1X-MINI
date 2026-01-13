@@ -27,8 +27,8 @@ cmd({
 
     // 🔹 Simple info (optional but clean)
     await reply(
-      `*👑 TIKTOK VIDEO DOWNLOADING *\n\n*👑 VIDEO NAME 👑\n` +
-      `📌 ${res.title || "No title"}\n\n*👑 BY :❯ BILAL-MD 👑*`
+      `*👑 TIKTOK VIDEO 👑*\n\n*👑 VIDEO NAME 👑\n` +
+      `${res.title || "No title"}\n\n*👑 BY :❯ BILAL-MD 👑*`
     );
 
     // 🔹 Send no-watermark video
