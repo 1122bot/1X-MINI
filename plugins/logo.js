@@ -21,25 +21,37 @@ async (conn, mek, m, { from, args, reply }) => {
 
         const text = encodeURIComponent(args.join(" "))
 
-        // 🎨 DIFFERENT LOGO STYLES (random)
-        const logos = [
-            `https://api-fix.onrender.com/api/logo/neon?text=${text}`,
-            `https://api-fix.onrender.com/api/logo/glow?text=${text}`,
-            `https://api-fix.onrender.com/api/logo/fire?text=${text}`,
-            `https://api-fix.onrender.com/api/logo/3d?text=${text}`,
-            `https://api-fix.onrender.com/api/logo/gold?text=${text}`
-        ]
-
-        const api = logos[Math.floor(Math.random() * logos.length)]
+        // 🔥 FlamingText API (JSON)
+        const api =
+`https://flamingtext.com/net-fu/image_output.cgi?script=neon-logo&text=${text}&_=${Date.now()}`
 
         reply("*🎨 APKA LOGO BAN RAHA HAI...*")
 
-        const res = await axios.get(api, { responseType: "arraybuffer" })
-        const buffer = Buffer.from(res.data)
+        // 1️⃣ Get JSON
+        const jsonRes = await axios.get(api, {
+            headers: { "User-Agent": "Mozilla/5.0" }
+        })
 
+        const imageUrl = jsonRes.data?.src
+        if (!imageUrl) {
+            return reply("*❌ LOGO IMAGE NAHI MILI 🥺*")
+        }
+
+        // 2️⃣ Download image as buffer
+        const imgRes = await axios.get(imageUrl, {
+            responseType: "arraybuffer",
+            headers: { "User-Agent": "Mozilla/5.0" }
+        })
+
+        const imageBuffer = Buffer.from(imgRes.data)
+
+        // 3️⃣ Send image buffer
         await conn.sendMessage(
             from,
-            { image: buffer, caption: "*✅ LOGO READY 😍*" },
+            {
+                image: imageBuffer,
+                caption: "✅ *LOGO READY 😍*"
+            },
             { quoted: mek }
         )
 
