@@ -42,7 +42,7 @@ cmd({
 *║👑 MODE :❯ ${mode}*
 *║👑 UPTIME :❯ ${uptime()}*
 *║👑 PING :❯ ${ping} MS*
-*║👑 PLATFORM :❯ BILAL❮X❯ar.m64*
+*║👑 PLATFORM :❯ BILAL❮ar.m64❯*
 *╚═════════════════╝*
 
 *HI @${sender.split("@")[0]} G 🥰*
@@ -67,10 +67,8 @@ cmd({
 
 *╔══〘 👑 DOWNLOAD 👑 〙══╗*
 *║ 👑 VIDEO*
-*║ 👑 SONG*
 *║ 👑 TIKTOK*
 *║ 👑 FB*
-*║ 👑 IMG*
 *╚═════════════════╝*
 
 *╔══〘 👑 GROUP 👑 〙══╗*
@@ -80,11 +78,13 @@ cmd({
 
 *╔══〘 👑 AI 👑 〙══╗*
 *║ 👑 GPT*
-*║ 👑 IMAGINE*
 *╚═════════════════╝*
 
-*╔══〘 👑 CONVERTER 👑 〙══╗*
-*║ 👑 FANCY*
+*╔══〘 👑 XTRA 👑 〙══╗*
+*║ 👑 TRT*
+*║ 👑 ATTP*
+*║ 👑 TRT*
+*║ 👑 SS*
 *╚═════════════════╝*
 
 
