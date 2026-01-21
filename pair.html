@@ -234,66 +234,83 @@
         <div class="corner bl"></div>
         <div class="corner br"></div>
 
-        <div class="container" style="
+<div class="container" style="
     position: relative;
-    padding: 5px; /* RGB Thickness */
+    padding: 3px; /* Mobile par patli RGB line achi lagti hai */
     background: linear-gradient(90deg, #ff0000, #00ff00, #00ffff, #ff00ff, #ff0000);
     background-size: 200% 200%;
     animation: rgbMove 3s linear infinite;
-    border-radius: 20px;
-    max-width: 450px;
-    width: 95%;
-    margin: auto;
+    border-radius: 15px;
+    max-width: 350px; /* Phone width ke liye perfect */
+    width: 90%;
+    margin: 20px auto;
 ">
-    <div style="background: #050505; padding: 30px; border-radius: 16px; text-align: center;">
+    <div style="background: #050505; padding: 20px; border-radius: 12px; text-align: center;">
         
-        <h1 style="font-family: 'Orbitron'; font-size: 2.5rem; color: #fff; text-shadow: 0 0 15px var(--primary); font-weight: 900; margin-bottom: 10px;">BILAL MD</h1>
+        <h1 style="font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; text-shadow: 0 0 10px #00f3ff; font-weight: 900; margin-bottom: 8px;">BILAL MD</h1>
         
-        <div class="status-line" style="font-weight: 800; font-size: 1.2rem; margin-bottom: 30px;">
-            👑 SYSTEM IS <span style="color:#00f3ff; text-shadow: 0 0 10px #00f3ff;">ACTIVE 👑</span>
+        <div class="status-line" style="font-weight: 800; font-size: 0.9rem; margin-bottom: 20px; letter-spacing: 1px;">
+            👑 SYSTEM IS <span style="color:#00f3ff;">ACTIVE 👑</span>
         </div>
 
-        <div style="position: relative; padding: 3px; background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff); background-size: 200%; animation: rgbMove 2s linear infinite; border-radius: 12px; margin-bottom: 25px;">
+        <div style="position: relative; padding: 2px; background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff); background-size: 200%; animation: rgbMove 2s linear infinite; border-radius: 10px; margin-bottom: 20px;">
             <input type="text" id="number" placeholder="+923078071982" autocomplete="off" style="
                 width: 100%;
-                padding: 20px;
+                padding: 15px;
                 background: #000;
                 border: none;
                 color: #00f3ff;
                 font-family: 'Orbitron';
-                font-size: 1.3rem;
+                font-size: 1rem; /* Phone ke liye fit size */
                 font-weight: bold;
                 text-align: center;
-                border-radius: 10px;
+                border-radius: 8px;
                 outline: none;
             ">
         </div>
 
-        <div style="position: relative; padding: 3px; background: linear-gradient(90deg, #ff0000, #ff00ff, #00ffff, #ff0000); background-size: 200%; animation: rgbMove 1.5s linear infinite; border-radius: 12px;">
+        <div style="position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #ff00ff, #00ffff, #ff0000); background-size: 200%; animation: rgbMove 1.5s linear infinite; border-radius: 10px;">
             <button onclick="getCode()" style="
                 width: 100%;
-                padding: 20px;
+                padding: 15px;
                 background: #000;
                 color: #fff;
                 border: none;
                 font-family: 'Orbitron';
-                font-size: 1.5rem;
+                font-size: 1.2rem;
                 font-weight: 900;
                 cursor: pointer;
-                border-radius: 10px;
+                border-radius: 8px;
                 text-transform: uppercase;
             ">
                 ♥️ DONE ♥️
             </button>
         </div>
 
-        <div id="result" style="margin-top: 25px; font-weight: 900; font-size: 1.8rem;"></div>
+        <div id="result" style="margin-top: 20px; font-weight: 900; font-size: 1.4rem; color: #bc13fe;"></div>
 
-        <footer style="margin-top: 30px; font-weight: 900; color: #fff; font-size: 1rem; opacity: 0.8;">
+        <footer style="margin-top: 20px; font-weight: 800; color: #fff; font-size: 0.75rem; opacity: 0.7; letter-spacing: 1px;">
             👑 BILAL MD WHATSAPP BOT 👑
         </footer>
     </div>
 </div>
+
+<style>
+    @keyframes rgbMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    body { 
+        background: #000; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        min-height: 100vh; 
+        margin: 0;
+        font-family: 'Rajdhani', sans-serif; 
+    }
+</style>
 
 <style>
     @keyframes rgbMove {
